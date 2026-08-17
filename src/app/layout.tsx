@@ -4,8 +4,21 @@ import Script from "next/script";
 import "./globals.css";
 
 export const metadata: Metadata = {
+  metadataBase: new URL('https://devtools-pro.com'),
   title: "DevTools Pro - Global Web Utilities",
   description: "A collection of premium developer and web utilities designed for maximum productivity.",
+  openGraph: {
+    title: "DevTools Pro - Global Web Utilities",
+    description: "Premium, Fast, and Secure Web Utilities for Developers, Creators, and Parents.",
+    url: 'https://devtools-pro.com',
+    siteName: 'DevTools Pro',
+    type: 'website',
+  },
+  twitter: {
+    card: 'summary_large_image',
+    title: "DevTools Pro - Global Web Utilities",
+    description: "Premium, Fast, and Secure Web Utilities for Developers, Creators, and Parents.",
+  },
 };
 
 export default function RootLayout({
