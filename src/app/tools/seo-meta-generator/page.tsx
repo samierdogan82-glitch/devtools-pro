@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import SmartBanner from '@/components/SmartBanner';
 
 export default function SeoMetaGenerator() {
   const [title, setTitle] = useState("");
@@ -180,12 +181,8 @@ ${keywords ? `<meta name="keywords" content="${escapeQuotes(keywords)}" />\n` : 
       </div>
 
       {/* Contextual Affiliate Banner */}
-      <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'rgba(16, 185, 129, 0.1)', border: '1px solid var(--success)', borderRadius: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>
-          <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem' }}>Want to rank higher on Google?</h3>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>A fast website is critical for SEO. Check out our #1 recommended SEO Web Hosting.</p>
-        </div>
-        <a href="/recommended" className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem', textDecoration: 'none', background: 'var(--success)', boxShadow: 'none' }}>View Hosting Deals</a>
+      <div style={{ marginTop: '2rem' }}>
+        <SmartBanner type="seo" />
       </div>
 
       <article style={{ marginTop: '4rem' }}>

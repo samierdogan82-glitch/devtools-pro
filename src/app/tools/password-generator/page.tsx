@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import SmartBanner from '@/components/SmartBanner';
 
 export default function PasswordGenerator() {
   const [password, setPassword] = useState("");
@@ -106,12 +107,8 @@ export default function PasswordGenerator() {
       </div>
 
       {/* Contextual Affiliate Banner */}
-      <div style={{ marginTop: '2rem', padding: '1.5rem', background: 'rgba(59, 130, 246, 0.1)', border: '1px solid var(--accent-primary)', borderRadius: '12px', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
-        <div>
-          <h3 style={{ fontSize: '1.1rem', marginBottom: '0.25rem' }}>Want to remember these passwords safely?</h3>
-          <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>We highly recommend using a secure password manager like 1Password.</p>
-        </div>
-        <a href="/recommended" className="btn btn-primary" style={{ padding: '0.5rem 1rem', fontSize: '0.9rem', textDecoration: 'none' }}>Get 1Password</a>
+      <div style={{ marginTop: '2rem' }}>
+        <SmartBanner type="password" />
       </div>
       
       {/* SEO Text Area & Ad Placeholder */}

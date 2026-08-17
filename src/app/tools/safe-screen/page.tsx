@@ -2,6 +2,7 @@
 
 import { useState } from 'react';
 import Link from 'next/link';
+import SmartBanner from '@/components/SmartBanner';
 
 export default function SafeScreenPage() {
   const [url, setUrl] = useState('');
@@ -106,15 +107,7 @@ export default function SafeScreenPage() {
 
         {/* Affiliate & AdSense Sidebar */}
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
-          <div className="glass-card" style={{ padding: '1.5rem', textAlign: 'center' }}>
-            <h3 style={{ marginBottom: '1rem', fontSize: '1.1rem' }}>Protect Your Kids Online</h3>
-            <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', marginBottom: '1.5rem' }}>
-              Get total peace of mind with the world's leading parental control software.
-            </p>
-            <Link href="/recommended" className="btn-secondary" style={{ display: 'block', width: '100%' }}>
-              Learn More
-            </Link>
-          </div>
+          <SmartBanner type="parental" />
 
           <div className="glass-card" style={{ padding: '1.5rem', textAlign: 'center', minHeight: '250px', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <div style={{ color: 'var(--text-secondary)', fontSize: '0.9rem' }}>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useMemo } from "react";
+import SmartBanner from '@/components/SmartBanner';
 
 export default function TextAnalyzer() {
   const [text, setText] = useState("");
@@ -117,11 +118,8 @@ export default function TextAnalyzer() {
               <span style={{ fontWeight: 'bold', color: 'var(--success)' }}>{stats.hasText ? `~${stats.readingTimeMinutes} min` : '-'}</span>
             </div>
           </div>
-          
-          {/* AdSense Placeholder */}
-          <div style={{ padding: '2rem', border: '1px dashed var(--glass-border)', borderRadius: '16px', textAlign: 'center', color: 'var(--text-secondary)' }} aria-hidden="true">
-            [AdSense Display Ad (Sidebar)]
-          </div>
+          {/* Contextual Affiliate Banner */}
+          <SmartBanner type="grammar" />
         </div>
       </div>
 
