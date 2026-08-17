@@ -1,7 +1,14 @@
-import type { Metadata } from "next";
+import type { Metadata, Viewport } from "next";
 import Link from "next/link";
 import Script from "next/script";
 import "./globals.css";
+
+export const viewport: Viewport = {
+  themeColor: '#0a0f1c',
+  width: 'device-width',
+  initialScale: 1,
+  maximumScale: 1,
+};
 
 export const metadata: Metadata = {
   metadataBase: new URL('https://devtools-pro.com'),
@@ -18,6 +25,11 @@ export const metadata: Metadata = {
     card: 'summary_large_image',
     title: "DevTools Pro - Global Web Utilities",
     description: "Premium, Fast, and Secure Web Utilities for Developers, Creators, and Parents.",
+  },
+  appleWebApp: {
+    capable: true,
+    title: "DevTools Pro",
+    statusBarStyle: "black-translucent",
   },
 };
 
