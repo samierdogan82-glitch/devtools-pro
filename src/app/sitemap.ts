@@ -23,6 +23,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/tools/glassmorphism-generator',
     '/tools/markdown-editor',
     '/tools/focus-timer',
+    '/tools/youtube-thumbnail',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),

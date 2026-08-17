@@ -65,6 +65,17 @@ export default function Home() {
 
         <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', position: 'relative' }}>
           <span style={{ position: 'absolute', top: '-10px', right: '-10px', background: 'var(--accent-primary)', color: '#fff', fontSize: '0.75rem', padding: '4px 8px', borderRadius: '12px', fontWeight: 'bold' }}>NEW</span>
+          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(220, 38, 38, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#dc2626', fontSize: '1.5rem', fontWeight: 'bold' }}>
+            ▶️
+          </div>
+          <h3>YouTube Thumbnail Extractor</h3>
+          <p style={{ color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+            Extract and download high-quality thumbnails from any YouTube video instantly.
+          </p>
+          <a href="/tools/youtube-thumbnail" style={{ color: 'var(--accent-primary)', fontWeight: 500, marginTop: 'auto' }}>Try it out &rarr;</a>
+        </div>
+
+        <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(239, 68, 68, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ef4444', fontSize: '1.5rem', fontWeight: 'bold' }}>
             ⏱️
           </div>

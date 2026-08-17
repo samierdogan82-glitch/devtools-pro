@@ -58,6 +58,7 @@ export default function RootLayout({
             <nav style={{ display: 'flex', gap: '2rem' }}>
               <Link href="/">Home</Link>
               <Link href="/blog">Blog</Link>
+              <Link href="/tools/youtube-thumbnail" style={{ color: '#ef4444', fontWeight: 500 }}>YT Thumbnail</Link>
               <Link href="/tools/focus-timer" style={{ color: '#ef4444', fontWeight: 500 }}>Focus Timer</Link>
               <Link href="/tools/markdown-editor" style={{ color: '#6366f1', fontWeight: 500 }}>Markdown</Link>
               <Link href="/tools/glassmorphism-generator" style={{ color: '#ec4899', fontWeight: 500 }}>Glassmorphism</Link>
