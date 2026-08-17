@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-type BannerType = 'parental' | 'seo' | 'password' | 'grammar' | 'ecommerce' | 'developer';
+type BannerType = 'parental' | 'seo' | 'password' | 'grammar' | 'ecommerce' | 'developer' | 'design';
 
 interface SmartBannerProps {
   type: BannerType;
@@ -60,6 +60,15 @@ const bannerConfig = {
     link: '/recommended',
     gradient: 'linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(14, 165, 233, 0.1))',
     borderHover: 'rgba(56, 189, 248, 0.5)'
+  },
+  design: {
+    icon: '🎨',
+    title: 'Design Like a Pro',
+    description: 'Create stunning graphics, videos, and presentations in minutes with premium assets.',
+    cta: 'Try Canva Pro',
+    link: '/recommended',
+    gradient: 'linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(168, 85, 247, 0.1))',
+    borderHover: 'rgba(236, 72, 153, 0.5)'
   }
 };
 

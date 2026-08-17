@@ -65,6 +65,17 @@ export default function Home() {
 
         <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', position: 'relative' }}>
           <span style={{ position: 'absolute', top: '-10px', right: '-10px', background: 'var(--accent-primary)', color: '#fff', fontSize: '0.75rem', padding: '4px 8px', borderRadius: '12px', fontWeight: 'bold' }}>NEW</span>
+          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(168, 85, 247, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#a855f7', fontSize: '1.5rem', fontWeight: 'bold' }}>
+            🖼️
+          </div>
+          <h3>WebP Image Optimizer</h3>
+          <p style={{ color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+            Compress and convert images to next-gen WebP format. Zero server cost, 100% private.
+          </p>
+          <a href="/tools/image-optimizer" style={{ color: 'var(--accent-primary)', fontWeight: 500, marginTop: 'auto' }}>Try it out &rarr;</a>
+        </div>
+
+        <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(56, 189, 248, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#38bdf8', fontSize: '1.5rem', fontWeight: 'bold' }}>
             {"{ }"}
           </div>
