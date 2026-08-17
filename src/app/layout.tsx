@@ -58,6 +58,7 @@ export default function RootLayout({
             <nav style={{ display: 'flex', gap: '2rem' }}>
               <Link href="/">Home</Link>
               <Link href="/blog">Blog</Link>
+              <Link href="/tools/glassmorphism-generator" style={{ color: '#ec4899', fontWeight: 500 }}>Glassmorphism</Link>
               <Link href="/tools/utm-builder" style={{ color: '#f97316', fontWeight: 500 }}>UTM Builder</Link>
               <Link href="/tools/image-optimizer" style={{ color: '#a855f7', fontWeight: 500 }}>Image Optimizer</Link>
               <Link href="/tools/json-formatter" style={{ color: '#38bdf8', fontWeight: 500 }}>JSON Formatter</Link>
