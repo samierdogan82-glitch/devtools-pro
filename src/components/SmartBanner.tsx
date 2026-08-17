@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-type BannerType = 'parental' | 'seo' | 'password' | 'grammar' | 'ecommerce' | 'developer' | 'design' | 'marketing';
+type BannerType = 'parental' | 'seo' | 'password' | 'grammar' | 'ecommerce' | 'developer' | 'design' | 'marketing' | 'productivity';
 
 interface SmartBannerProps {
   type: BannerType;
@@ -78,6 +78,15 @@ const bannerConfig = {
     link: '/recommended',
     gradient: 'linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.1))',
     borderHover: 'rgba(249, 115, 22, 0.5)'
+  },
+  productivity: {
+    icon: '⚡',
+    title: '10x Your Productivity',
+    description: 'Organize your tasks, collaborate with your team, and never miss a deadline again.',
+    cta: 'Start For Free',
+    link: '/recommended',
+    gradient: 'linear-gradient(135deg, rgba(16, 185, 129, 0.1), rgba(5, 150, 105, 0.1))',
+    borderHover: 'rgba(16, 185, 129, 0.5)'
   }
 };
 
