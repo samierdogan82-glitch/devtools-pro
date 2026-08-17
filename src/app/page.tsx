@@ -65,6 +65,17 @@ export default function Home() {
 
         <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', position: 'relative' }}>
           <span style={{ position: 'absolute', top: '-10px', right: '-10px', background: 'var(--accent-primary)', color: '#fff', fontSize: '0.75rem', padding: '4px 8px', borderRadius: '12px', fontWeight: 'bold' }}>NEW</span>
+          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(14, 165, 233, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#0ea5e9', fontSize: '1.5rem', fontWeight: 'bold' }}>
+            🌫️
+          </div>
+          <h3>CSS Box Shadow Generator</h3>
+          <p style={{ color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+            Visually design perfect CSS box shadows and instantly copy the code.
+          </p>
+          <a href="/tools/box-shadow" style={{ color: 'var(--accent-primary)', fontWeight: 500, marginTop: 'auto' }}>Try it out &rarr;</a>
+        </div>
+
+        <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(245, 158, 11, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#f59e0b', fontSize: '1.5rem', fontWeight: 'bold' }}>
             📝
           </div>
