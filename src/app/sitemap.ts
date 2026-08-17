@@ -15,6 +15,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/tools/password-generator',
     '/tools/text-analyzer',
     '/tools/seo-meta-generator',
+    '/tools/safe-screen',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
