@@ -21,6 +21,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/tools/image-optimizer',
     '/tools/utm-builder',
     '/tools/glassmorphism-generator',
+    '/tools/markdown-editor',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
