@@ -53,6 +53,17 @@ export default function Home() {
 
         <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', gap: '1rem', position: 'relative' }}>
           <span style={{ position: 'absolute', top: '-10px', right: '-10px', background: 'var(--accent-primary)', color: '#fff', fontSize: '0.75rem', padding: '4px 8px', borderRadius: '12px', fontWeight: 'bold' }}>NEW</span>
+          <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(16, 185, 129, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#10b981', fontSize: '1.5rem', fontWeight: 'bold' }}>
+            📱
+          </div>
+          <h3>Smart QR Generator</h3>
+          <p style={{ color: 'var(--text-secondary)', lineHeight: '1.5' }}>
+            Create custom, high-resolution QR codes with logos and colors instantly.
+          </p>
+          <a href="/tools/qr-generator" style={{ color: 'var(--accent-primary)', fontWeight: 500, marginTop: 'auto' }}>Try it out &rarr;</a>
+        </div>
+
+        <div className="glass-panel" style={{ display: 'flex', flexDirection: 'column', gap: '1rem' }}>
           <div style={{ width: '48px', height: '48px', borderRadius: '12px', background: 'rgba(236, 72, 153, 0.2)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: '#ec4899', fontSize: '1.5rem', fontWeight: 'bold' }}>
             🛡️
           </div>

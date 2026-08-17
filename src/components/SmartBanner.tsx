@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-type BannerType = 'parental' | 'seo' | 'password' | 'grammar';
+type BannerType = 'parental' | 'seo' | 'password' | 'grammar' | 'ecommerce';
 
 interface SmartBannerProps {
   type: BannerType;
@@ -42,6 +42,15 @@ const bannerConfig = {
     link: '/recommended',
     gradient: 'linear-gradient(135deg, rgba(139, 92, 246, 0.1), rgba(109, 40, 217, 0.1))',
     borderHover: 'rgba(139, 92, 246, 0.5)'
+  },
+  ecommerce: {
+    icon: '🛍️',
+    title: 'Start Selling Online Today',
+    description: 'Build your dream e-commerce store in minutes with the world\'s leading platform.',
+    cta: 'Start Free Trial',
+    link: '/recommended',
+    gradient: 'linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(202, 138, 4, 0.1))',
+    borderHover: 'rgba(234, 179, 8, 0.5)'
   }
 };
 

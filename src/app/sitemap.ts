@@ -16,6 +16,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/tools/text-analyzer',
     '/tools/seo-meta-generator',
     '/tools/safe-screen',
+    '/tools/qr-generator',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
