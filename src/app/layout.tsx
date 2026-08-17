@@ -58,6 +58,7 @@ export default function RootLayout({
             <nav style={{ display: 'flex', gap: '2rem' }}>
               <Link href="/">Home</Link>
               <Link href="/blog">Blog</Link>
+              <Link href="/tools/lorem-ipsum" style={{ color: '#f59e0b', fontWeight: 500 }}>Lorem Ipsum</Link>
               <Link href="/tools/color-palette" style={{ color: '#10b981', fontWeight: 500 }}>Color Palette</Link>
               <Link href="/tools/fancy-font-generator" style={{ color: '#d946ef', fontWeight: 500 }}>Fancy Font</Link>
               <Link href="/tools/youtube-thumbnail" style={{ color: '#ef4444', fontWeight: 500 }}>YT Thumbnail</Link>
