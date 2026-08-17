@@ -67,6 +67,13 @@ a:hover {
   border-radius: 16px;
   padding: 2rem;
   box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.3);
+  transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.glass-panel:hover {
+  transform: translateY(-5px) scale(1.02);
+  box-shadow: 0 15px 40px 0 rgba(59, 130, 246, 0.2);
+  border-color: rgba(59, 130, 246, 0.4);
 }
 
 /* Buttons */
@@ -78,9 +85,13 @@ a:hover {
   font-weight: 600;
   border-radius: 8px;
   cursor: pointer;
-  transition: all 0.2s ease;
+  transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
   border: none;
   font-size: 1rem;
+}
+
+.btn:active {
+  transform: scale(0.95);
 }
 
 .btn-primary {
@@ -90,8 +101,8 @@ a:hover {
 }
 
 .btn-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px 0 rgba(59, 130, 246, 0.5);
+  transform: translateY(-2px) scale(1.05);
+  box-shadow: 0 8px 25px 0 rgba(59, 130, 246, 0.6);
 }
 
 .btn-outline {
@@ -102,6 +113,8 @@ a:hover {
 
 .btn-outline:hover {
   background: rgba(59, 130, 246, 0.1);
+  transform: translateY(-2px);
+  box-shadow: 0 4px 15px rgba(59, 130, 246, 0.2);
 }
 
 /* Form Elements */

@@ -16,7 +16,30 @@ export default function TextAnalyzer() {
     const paragraphCount = text.split(/\n+/).filter(Boolean).length;
     const readingTimeMinutes = Math.max(1, Math.ceil(wordCount / 225));
     
-    return { characterCount, wordCount, sentenceCount, paragraphCount, readingTimeMinutes, hasText: true };
+    let seoScore = 0;
+    if (wordCount > 0) {
+      seoScore += Math.min(40, (wordCount / 300) * 40);
+      seoScore += Math.min(30, (paragraphCount / 4) * 30);
+      const avgWordsPerSentence = wordCount / Math.max(1, sentenceCount);
+      if (avgWordsPerSentence >= 10 && avgWordsPerSentence <= 20) {
+        seoScore += 30;
+      } else {
+        seoScore += 15;
+      }
+    }
+    seoScore = Math.round(seoScore);
+    
+    let scoreColor = 'var(--error)';
+    let scoreLabel = 'Needs Work';
+    if (seoScore >= 80) {
+      scoreColor = 'var(--success)';
+      scoreLabel = 'Excellent';
+    } else if (seoScore >= 50) {
+      scoreColor = '#f59e0b';
+      scoreLabel = 'Good';
+    }
+
+    return { characterCount, wordCount, sentenceCount, paragraphCount, readingTimeMinutes, seoScore, scoreColor, scoreLabel, hasText: true };
   }, [text]);
 
   return (
@@ -49,7 +72,25 @@ export default function TextAnalyzer() {
 
         <div style={{ display: 'flex', flexDirection: 'column', gap: '1.5rem' }}>
           <div className="glass-panel" style={{ padding: '1.5rem' }}>
-            <h2 style={{ fontSize: '1.25rem', marginBottom: '1rem', borderBottom: '1px solid var(--glass-border)', paddingBottom: '0.5rem' }}>Statistics</h2>
+            <div style={{ textAlign: 'center', marginBottom: '1.5rem', paddingBottom: '1.5rem', borderBottom: '1px solid var(--glass-border)' }}>
+              <h2 style={{ fontSize: '1rem', color: 'var(--text-secondary)', marginBottom: '0.5rem', textTransform: 'uppercase', letterSpacing: '1px' }}>SEO Readiness</h2>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: '1rem' }}>
+                <div style={{ 
+                  fontSize: '2.5rem', 
+                  fontWeight: '800', 
+                  color: stats.hasText ? stats.scoreColor : 'var(--text-secondary)',
+                  textShadow: stats.hasText ? `0 0 20px ${stats.scoreColor}40` : 'none',
+                  transition: 'all 0.3s ease'
+                }}>
+                  {stats.hasText ? stats.seoScore : '0'}<span style={{ fontSize: '1rem', color: 'var(--text-secondary)' }}>/100</span>
+                </div>
+              </div>
+              <div style={{ fontSize: '0.9rem', color: stats.hasText ? stats.scoreColor : 'var(--text-secondary)', marginTop: '0.5rem', fontWeight: 600 }}>
+                {stats.hasText ? stats.scoreLabel : 'Awaiting Text'}
+              </div>
+            </div>
+
+            <h2 style={{ fontSize: '1.25rem', marginBottom: '1rem' }}>Statistics</h2>
             
             <div style={{ display: 'flex', justifyContent: 'space-between', marginBottom: '0.75rem' }}>
               <span style={{ color: 'var(--text-secondary)' }}>Words</span>
