@@ -58,6 +58,7 @@ export default function RootLayout({
             <nav style={{ display: 'flex', gap: '2rem' }}>
               <Link href="/">Home</Link>
               <Link href="/blog">Blog</Link>
+              <Link href="/tools/json-formatter" style={{ color: '#38bdf8', fontWeight: 500 }}>JSON Formatter</Link>
               <Link href="/tools/qr-generator" style={{ color: '#10b981', fontWeight: 500 }}>QR Gen</Link>
               <Link href="/tools/safe-screen" style={{ color: '#ec4899', fontWeight: 500 }}>SafeScreen</Link>
               <Link href="/recommended" style={{ color: 'var(--accent-primary)', fontWeight: 500 }}>Recommended</Link>

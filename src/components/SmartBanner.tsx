@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-type BannerType = 'parental' | 'seo' | 'password' | 'grammar' | 'ecommerce';
+type BannerType = 'parental' | 'seo' | 'password' | 'grammar' | 'ecommerce' | 'developer';
 
 interface SmartBannerProps {
   type: BannerType;
@@ -51,6 +51,15 @@ const bannerConfig = {
     link: '/recommended',
     gradient: 'linear-gradient(135deg, rgba(234, 179, 8, 0.1), rgba(202, 138, 4, 0.1))',
     borderHover: 'rgba(234, 179, 8, 0.5)'
+  },
+  developer: {
+    icon: '☁️',
+    title: 'Deploy Faster, Scale Easier',
+    description: 'Get $200 free credit to host your next big project on premium cloud infrastructure.',
+    cta: 'Claim Free Credit',
+    link: '/recommended',
+    gradient: 'linear-gradient(135deg, rgba(56, 189, 248, 0.1), rgba(14, 165, 233, 0.1))',
+    borderHover: 'rgba(56, 189, 248, 0.5)'
   }
 };
 
