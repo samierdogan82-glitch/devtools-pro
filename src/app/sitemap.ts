@@ -28,6 +28,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/tools/color-palette',
     '/tools/lorem-ipsum',
     '/tools/box-shadow',
+    '/tools/dummy-data',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
