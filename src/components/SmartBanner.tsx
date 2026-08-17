@@ -1,6 +1,6 @@
 import Link from 'next/link';
 
-type BannerType = 'parental' | 'seo' | 'password' | 'grammar' | 'ecommerce' | 'developer' | 'design';
+type BannerType = 'parental' | 'seo' | 'password' | 'grammar' | 'ecommerce' | 'developer' | 'design' | 'marketing';
 
 interface SmartBannerProps {
   type: BannerType;
@@ -69,6 +69,15 @@ const bannerConfig = {
     link: '/recommended',
     gradient: 'linear-gradient(135deg, rgba(236, 72, 153, 0.1), rgba(168, 85, 247, 0.1))',
     borderHover: 'rgba(236, 72, 153, 0.5)'
+  },
+  marketing: {
+    icon: '📈',
+    title: 'Explode Your Traffic',
+    description: 'Track competitors, find winning keywords, and grow your business with the #1 marketing toolkit.',
+    cta: 'Start Free Trial',
+    link: '/recommended',
+    gradient: 'linear-gradient(135deg, rgba(249, 115, 22, 0.1), rgba(234, 88, 12, 0.1))',
+    borderHover: 'rgba(249, 115, 22, 0.5)'
   }
 };
 
