@@ -25,6 +25,7 @@ export default function sitemap(): MetadataRoute.Sitemap {
     '/tools/focus-timer',
     '/tools/youtube-thumbnail',
     '/tools/fancy-font-generator',
+    '/tools/color-palette',
   ].map((route) => ({
     url: `${baseUrl}${route}`,
     lastModified: new Date(),
