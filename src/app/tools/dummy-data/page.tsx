@@ -1,7 +1,7 @@
-"use client";
-
 import { useState } from "react";
 import SmartBanner from "@/components/SmartBanner";
+import { SocialShareBar } from "@/components/SocialShareBar";
+import { AdPlacement } from "@/components/AdPlacement";
 
 const firstNames = ["James", "Mary", "John", "Patricia", "Robert", "Jennifer", "Michael", "Linda", "William", "Elizabeth", "David", "Barbara", "Richard", "Susan", "Joseph", "Jessica", "Thomas", "Sarah", "Charles", "Karen"];
 const lastNames = ["Smith", "Johnson", "Williams", "Brown", "Jones", "Garcia", "Miller", "Davis", "Rodriguez", "Martinez", "Hernandez", "Lopez", "Gonzalez", "Wilson", "Anderson", "Thomas", "Taylor", "Moore", "Jackson", "Martin"];
@@ -258,6 +258,11 @@ export default function DummyDataPage() {
           </button>
 
         </div>
+      </div>
+
+      <div style={{ maxWidth: '800px', margin: '0 auto 2rem auto' }}>
+        <SocialShareBar toolName="Free Mock & Dummy Data Generator" />
+        <AdPlacement slot="9876543210" format="auto" />
       </div>
 
       <div style={{ maxWidth: '800px', margin: '0 auto 4rem auto' }}>
