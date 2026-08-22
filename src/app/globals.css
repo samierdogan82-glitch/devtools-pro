@@ -189,3 +189,40 @@ a:hover {
   color: var(--accent-secondary);
   text-decoration: underline;
 }
+
+/* Responsive Utilities */
+.responsive-grid {
+  display: grid;
+  grid-template-columns: 1fr 350px;
+  gap: 2rem;
+  align-items: start;
+}
+
+.nav-links {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  white-space: nowrap;
+  padding-bottom: 0.5rem;
+  -webkit-overflow-scrolling: touch;
+}
+
+/* Hide scrollbar for nav-links but allow scrolling */
+.nav-links::-webkit-scrollbar {
+  display: none;
+}
+.nav-links {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+@media (max-width: 768px) {
+  .responsive-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  /* Force all inline 2-column grids to 1 column on mobile */
+  div[style*="grid-template-columns"] {
+    grid-template-columns: 1fr !important;
+  }
+}

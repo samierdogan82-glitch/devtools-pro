@@ -3,6 +3,7 @@
 import { useState } from "react";
 import ReactMarkdown from "react-markdown";
 import SmartBanner from "@/components/SmartBanner";
+import { copyToClipboard as secureCopy } from "@/lib/clipboard";
 
 const DEFAULT_MARKDOWN = `# Welcome to the Live Markdown Editor!
 
@@ -29,10 +30,12 @@ export default function MarkdownEditorPage() {
   const [markdown, setMarkdown] = useState(DEFAULT_MARKDOWN);
   const [copied, setCopied] = useState(false);
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(markdown);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copyToClipboard = async () => {
+    const success = await secureCopy(markdown);
+    if (success) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   const clearEditor = () => {

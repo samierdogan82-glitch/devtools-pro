@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import SmartBanner from '@/components/SmartBanner';
+import { copyToClipboard as secureCopy } from "@/lib/clipboard";
 
 export default function PasswordGenerator() {
   const [password, setPassword] = useState("");
@@ -39,11 +40,13 @@ export default function PasswordGenerator() {
   // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [length, includeUppercase, includeLowercase, includeNumbers, includeSymbols]);
 
-  const copyToClipboard = () => {
+  const copyToClipboard = async () => {
     if (!password || password === "Please select at least one option.") return;
-    navigator.clipboard.writeText(password);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    const success = await secureCopy(password);
+    if (success) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   return (

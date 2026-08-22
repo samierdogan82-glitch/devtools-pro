@@ -2,6 +2,7 @@
 
 import { useState, useEffect, useCallback } from "react";
 import SmartBanner from "@/components/SmartBanner";
+import { copyToClipboard as secureCopy } from "@/lib/clipboard";
 
 interface ColorItem {
   hex: string;
@@ -74,7 +75,7 @@ export default function ColorPalettePage() {
   // Spacebar listener
   useEffect(() => {
     const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.code === "Space") {
+      if (e.code === "Space" && document.activeElement?.tagName !== "BUTTON" && document.activeElement?.tagName !== "INPUT") {
         e.preventDefault(); // Prevent page scrolling
         setColors(prev => generatePalette(prev));
       }
@@ -91,10 +92,12 @@ export default function ColorPalettePage() {
     });
   };
 
-  const copyToClipboard = (hex: string, index: number) => {
-    navigator.clipboard.writeText(hex);
-    setCopiedIndex(index);
-    setTimeout(() => setCopiedIndex(null), 1000);
+  const copyToClipboard = async (hex: string, index: number) => {
+    const success = await secureCopy(hex);
+    if (success) {
+      setCopiedIndex(index);
+      setTimeout(() => setCopiedIndex(null), 1000);
+    }
   };
 
   const isLightColor = (hex: string) => {
@@ -170,6 +173,7 @@ export default function ColorPalettePage() {
                     filter: 'drop-shadow(0px 2px 4px rgba(0,0,0,0.2))'
                   }}
                   title={colorItem.locked ? "Unlock color" : "Lock color"}
+                  aria-label={colorItem.locked ? "Unlock color" : "Lock color"}
                 >
                   {colorItem.locked ? '🔒' : '🔓'}
                 </button>
@@ -231,7 +235,8 @@ export default function ColorPalettePage() {
         .color-controls {
           opacity: 0;
         }
-        div[style*="flex: 1"]:hover .color-controls {
+        div[style*="flex: 1"]:hover .color-controls,
+        div[style*="flex: 1"]:focus-within .color-controls {
           opacity: 1 !important;
           transform: translateY(0) !important;
         }

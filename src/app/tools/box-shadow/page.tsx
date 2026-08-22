@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import SmartBanner from "@/components/SmartBanner";
+import { copyToClipboard as secureCopy } from "@/lib/clipboard";
 
 export default function BoxShadowPage() {
   const [hOffset, setHOffset] = useState(10);
@@ -19,10 +20,12 @@ export default function BoxShadowPage() {
   const cssValue = `${inset ? "inset " : ""}${hOffset}px ${vOffset}px ${blur}px ${spread}px rgba(${color}, ${opacity})`;
   const cssCode = `box-shadow: ${cssValue};\n-webkit-box-shadow: ${cssValue};\n-moz-box-shadow: ${cssValue};`;
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(cssCode);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    const success = await secureCopy(cssCode);
+    if (success) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   const hexToRgbString = (hex: string) => {

@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import SmartBanner from '@/components/SmartBanner';
+import { copyToClipboard as secureCopy } from "@/lib/clipboard";
 
 export default function SeoMetaGenerator() {
   const [title, setTitle] = useState("");
@@ -37,9 +38,11 @@ ${keywords ? `<meta name="keywords" content="${escapeQuotes(keywords)}" />\n` : 
 <meta property="twitter:image" content="${escapeQuotes(image)}" />
   `.trim();
 
-  const copyCode = () => {
-    navigator.clipboard.writeText(generatedCode);
-    alert("Code copied to clipboard!");
+  const copyCode = async () => {
+    const success = await secureCopy(generatedCode);
+    if (success) {
+      alert("Code copied to clipboard!");
+    }
   };
 
   return (

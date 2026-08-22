@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import SmartBanner from "@/components/SmartBanner";
+import { copyToClipboard as secureCopy } from "@/lib/clipboard";
 
 export default function UtmBuilderPage() {
   const [url, setUrl] = useState("");
@@ -21,14 +22,25 @@ export default function UtmBuilderPage() {
     }
 
     try {
-      // Basic URL validation
-      const baseUrl = url.startsWith('http') ? url : `https://${url}`;
+      // Basic URL validation - enforce http/https
+      let baseUrl = url;
+      if (!baseUrl.startsWith('http://') && !baseUrl.startsWith('https://')) {
+        baseUrl = `https://${url}`;
+      }
+      
       const urlObj = new URL(baseUrl);
+      
+      if (!['http:', 'https:'].includes(urlObj.protocol)) {
+        throw new Error("Invalid protocol");
+      }
+      
+      if (!source) {
+        throw new Error("Campaign Source is required");
+      }
       
       const params = new URLSearchParams(urlObj.search);
       
-      if (source) params.set('utm_source', source);
-      else params.delete('utm_source');
+      params.set('utm_source', source);
       
       if (medium) params.set('utm_medium', medium);
       else params.delete('utm_medium');
@@ -46,16 +58,20 @@ export default function UtmBuilderPage() {
       const finalUrl = `${urlObj.origin}${urlObj.pathname}${queryString ? `?${queryString}` : ''}${urlObj.hash}`;
       
       setGeneratedUrl(finalUrl);
-    } catch (e) {
-      setGeneratedUrl("Please enter a valid website URL");
+    } catch (e: any) {
+      setGeneratedUrl(e.message === "Campaign Source is required" 
+        ? "Campaign Source is required" 
+        : "Please enter a valid website URL");
     }
   }, [url, source, medium, campaign, term, content]);
 
-  const copyToClipboard = () => {
-    if (!generatedUrl || generatedUrl.includes("valid website URL")) return;
-    navigator.clipboard.writeText(generatedUrl);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copyToClipboard = async () => {
+    if (!generatedUrl || generatedUrl.includes("valid website URL") || generatedUrl.includes("required")) return;
+    const success = await secureCopy(generatedUrl);
+    if (success) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   const clearForm = () => {

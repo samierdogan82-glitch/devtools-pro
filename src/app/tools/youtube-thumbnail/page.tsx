@@ -19,7 +19,8 @@ export default function YouTubeThumbnailPage() {
       
       // Handle standard youtube.com links
       const urlObj = new URL(inputUrl);
-      if (urlObj.hostname.includes("youtube.com")) {
+      const validHosts = ["youtube.com", "www.youtube.com", "m.youtube.com"];
+      if (validHosts.includes(urlObj.hostname)) {
         if (urlObj.pathname === "/watch") {
           return urlObj.searchParams.get("v");
         }
@@ -43,7 +44,7 @@ export default function YouTubeThumbnailPage() {
     }
 
     const id = extractVideoId(url);
-    if (id && id.length >= 10) {
+    if (id && /^[a-zA-Z0-9_-]{11}$/.test(id)) {
       setVideoId(id);
     } else {
       setError("Could not extract Video ID. Make sure the URL is correct.");

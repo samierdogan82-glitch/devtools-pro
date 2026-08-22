@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import SmartBanner from "@/components/SmartBanner";
+import { copyToClipboard as secureCopy } from "@/lib/clipboard";
 
 const normalChars = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
 
@@ -73,22 +74,22 @@ export default function FancyFontGeneratorPage() {
   const [copiedIndex, setCopiedIndex] = useState<number | null>(null);
 
   const convertText = (inputText: string, fontChars: string) => {
+    const fontArray = Array.from(fontChars);
     return inputText.split("").map(char => {
       const index = normalChars.indexOf(char);
-      if (index !== -1 && index < fontChars.length / 2) { // Simplified check for astral planes
-        // Note: JavaScript handles surrogate pairs weirdly with .split(""), 
-        // Array.from() is better for unicode strings.
-        const fontArray = Array.from(fontChars);
+      if (index !== -1 && index < fontArray.length) { 
         return fontArray[index] || char;
       }
       return char;
     }).join("");
   };
 
-  const handleCopy = (convertedText: string, index: number) => {
-    navigator.clipboard.writeText(convertedText);
-    setCopiedIndex(index);
-    setTimeout(() => setCopiedIndex(null), 2000);
+  const handleCopy = async (convertedText: string, index: number) => {
+    const success = await secureCopy(convertedText);
+    if (success) {
+      setCopiedIndex(index);
+      setTimeout(() => setCopiedIndex(null), 2000);
+    }
   };
 
   return (

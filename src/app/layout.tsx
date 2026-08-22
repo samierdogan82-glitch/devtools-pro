@@ -7,7 +7,6 @@ export const viewport: Viewport = {
   themeColor: '#0a0f1c',
   width: 'device-width',
   initialScale: 1,
-  maximumScale: 1,
 };
 
 export const metadata: Metadata = {
@@ -55,7 +54,7 @@ export default function RootLayout({
             <div style={{ fontSize: '1.5rem', fontWeight: 700, letterSpacing: '-0.5px' }}>
               <span className="text-gradient">DevTools</span> Pro
             </div>
-            <nav style={{ display: 'flex', gap: '2rem' }}>
+            <nav className="nav-links">
               <Link href="/">Home</Link>
               <Link href="/blog">Blog</Link>
               <Link href="/tools/dummy-data" style={{ color: '#10b981', fontWeight: 500 }}>Mock Data</Link>
@@ -71,8 +70,23 @@ export default function RootLayout({
               <Link href="/tools/image-optimizer" style={{ color: '#a855f7', fontWeight: 500 }}>Image Optimizer</Link>
               <Link href="/tools/json-formatter" style={{ color: '#38bdf8', fontWeight: 500 }}>JSON Formatter</Link>
               <Link href="/tools/qr-generator" style={{ color: '#10b981', fontWeight: 500 }}>QR Gen</Link>
-              <Link href="/tools/safe-screen" style={{ color: '#ec4899', fontWeight: 500 }}>SafeScreen</Link>
               <Link href="/recommended" style={{ color: 'var(--accent-primary)', fontWeight: 500 }}>Recommended</Link>
+              <Link href="/pricing" style={{ color: '#10b981', fontWeight: 600 }}>Pricing</Link>
+              <Link 
+                href="/pricing" 
+                style={{ 
+                  background: 'linear-gradient(135deg, #3b82f6, #10b981)', 
+                  color: '#fff', 
+                  padding: '6px 14px', 
+                  borderRadius: '999px', 
+                  fontSize: '0.85rem', 
+                  fontWeight: 700, 
+                  textDecoration: 'none',
+                  boxShadow: '0 0 15px rgba(59, 130, 246, 0.4)' 
+                }}
+              >
+                ⚡ Get Pro
+              </Link>
             </nav>
           </div>
         </header>

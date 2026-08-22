@@ -19,6 +19,7 @@ interface Field {
 export default function DummyDataPage() {
   const [rows, setRows] = useState(10);
   const [format, setFormat] = useState<"json" | "csv">("json");
+  const [isGenerating, setIsGenerating] = useState(false);
   const [fields, setFields] = useState<Field[]>([
     { id: "1", name: "id", type: "uuid" },
     { id: "2", name: "firstName", type: "firstName" },
@@ -35,33 +36,70 @@ export default function DummyDataPage() {
     });
   };
 
-  const generateData = () => {
-    const data = [];
-    for (let i = 0; i < rows; i++) {
-      const row: any = {};
-      const fName = firstNames[Math.floor(Math.random() * firstNames.length)];
-      const lName = lastNames[Math.floor(Math.random() * lastNames.length)];
-      
-      fields.forEach(field => {
-        switch(field.type) {
-          case "uuid": row[field.name] = generateUUID(); break;
-          case "firstName": row[field.name] = fName; break;
-          case "lastName": row[field.name] = lName; break;
-          case "fullName": row[field.name] = `${fName} ${lName}`; break;
-          case "email": row[field.name] = `${fName.toLowerCase()}.${lName.toLowerCase()}${Math.floor(Math.random() * 100)}@${domains[Math.floor(Math.random() * domains.length)]}`; break;
-          case "phone": row[field.name] = `+1 (${Math.floor(Math.random() * 800) + 200}) ${Math.floor(Math.random() * 800) + 200}-${Math.floor(Math.random() * 9000) + 1000}`; break;
-          case "company": row[field.name] = companies[Math.floor(Math.random() * companies.length)]; break;
-          case "age": row[field.name] = Math.floor(Math.random() * 50) + 18; break;
-          case "boolean": row[field.name] = Math.random() > 0.5; break;
-        }
-      });
-      data.push(row);
-    }
-    return data;
+  const getUniqueFields = () => {
+    const seen = new Set();
+    return fields.map(f => {
+      let uniqueName = f.name || "field";
+      let counter = 1;
+      while (seen.has(uniqueName)) {
+        uniqueName = `${f.name || "field"}_${counter}`;
+        counter++;
+      }
+      seen.add(uniqueName);
+      return { ...f, uniqueName };
+    });
   };
 
-  const downloadData = () => {
-    const data = generateData();
+  const generateDataAsync = async () => {
+    const data = [];
+    const uniqueFields = getUniqueFields();
+    
+    // Chunking to prevent main thread blocking
+    for (let i = 0; i < rows; i += 1000) {
+      // Yield to main thread every 1000 rows
+      await new Promise(resolve => setTimeout(resolve, 0));
+      const chunkEnd = Math.min(i + 1000, rows);
+      
+      for (let j = i; j < chunkEnd; j++) {
+        const row: any = {};
+        const fName = firstNames[Math.floor(Math.random() * firstNames.length)];
+        const lName = lastNames[Math.floor(Math.random() * lastNames.length)];
+        
+        uniqueFields.forEach(field => {
+          switch(field.type) {
+            case "uuid": row[field.uniqueName] = generateUUID(); break;
+            case "firstName": row[field.uniqueName] = fName; break;
+            case "lastName": row[field.uniqueName] = lName; break;
+            case "fullName": row[field.uniqueName] = `${fName} ${lName}`; break;
+            case "email": row[field.uniqueName] = `${fName.toLowerCase()}.${lName.toLowerCase()}${Math.floor(Math.random() * 100)}@${domains[Math.floor(Math.random() * domains.length)]}`; break;
+            case "phone": row[field.uniqueName] = `+1 (${Math.floor(Math.random() * 800) + 200}) ${Math.floor(Math.random() * 800) + 200}-${Math.floor(Math.random() * 9000) + 1000}`; break;
+            case "company": row[field.uniqueName] = companies[Math.floor(Math.random() * companies.length)]; break;
+            case "age": row[field.uniqueName] = Math.floor(Math.random() * 50) + 18; break;
+            case "boolean": row[field.uniqueName] = Math.random() > 0.5; break;
+          }
+        });
+        data.push(row);
+      }
+    }
+    return { data, uniqueFields };
+  };
+
+  const escapeCsv = (val: any) => {
+    if (val === null || val === undefined) return "";
+    let str = String(val);
+    // Prevent spreadsheet formula injection
+    if (/^[=+\-@]/.test(str)) str = "'" + str;
+    // Escape quotes and wrap in quotes if contains comma, newline, or quotes
+    if (str.includes('"') || str.includes(',') || str.includes('\n')) {
+      return '"' + str.replace(/"/g, '""') + '"';
+    }
+    return str;
+  };
+
+  const downloadData = async () => {
+    setIsGenerating(true);
+    const { data, uniqueFields } = await generateDataAsync();
+    
     let content = "";
     let mimeType = "";
     let filename = "";
@@ -72,13 +110,9 @@ export default function DummyDataPage() {
       filename = "dummy_data.json";
     } else {
       // CSV
-      const headers = fields.map(f => f.name).join(",");
+      const headers = uniqueFields.map(f => escapeCsv(f.uniqueName)).join(",");
       const csvRows = data.map(row => {
-        return fields.map(f => {
-          const val = row[f.name];
-          // Escape quotes for CSV if it's a string
-          return typeof val === 'string' ? `"${val}"` : val;
-        }).join(",");
+        return uniqueFields.map(f => escapeCsv(row[f.uniqueName])).join(",");
       });
       content = [headers, ...csvRows].join("\n");
       mimeType = "text/csv";
@@ -94,6 +128,7 @@ export default function DummyDataPage() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
+    setIsGenerating(false);
   };
 
   const addField = () => {
@@ -216,9 +251,10 @@ export default function DummyDataPage() {
           <button 
             className="btn btn-primary"
             onClick={downloadData}
-            style={{ width: '100%', padding: '1rem', fontSize: '1.2rem', marginTop: '1rem' }}
+            disabled={isGenerating}
+            style={{ width: '100%', padding: '1rem', fontSize: '1.2rem', marginTop: '1rem', opacity: isGenerating ? 0.7 : 1 }}
           >
-            Download {rows.toLocaleString()} Rows as {format.toUpperCase()}
+            {isGenerating ? "Generating..." : `Download ${rows.toLocaleString()} Rows as ${format.toUpperCase()}`}
           </button>
 
         </div>

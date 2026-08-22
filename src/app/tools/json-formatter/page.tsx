@@ -2,6 +2,7 @@
 
 import { useState } from "react";
 import SmartBanner from "@/components/SmartBanner";
+import { copyToClipboard as secureCopy } from "@/lib/clipboard";
 
 export default function JsonFormatterPage() {
   const [input, setInput] = useState("");
@@ -23,11 +24,13 @@ export default function JsonFormatterPage() {
     }
   };
 
-  const copyToClipboard = () => {
+  const copyToClipboard = async () => {
     if (!output) return;
-    navigator.clipboard.writeText(output);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+    const success = await secureCopy(output);
+    if (success) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   const clearAll = () => {

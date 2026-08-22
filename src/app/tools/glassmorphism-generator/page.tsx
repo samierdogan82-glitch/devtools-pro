@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import SmartBanner from "@/components/SmartBanner";
+import { copyToClipboard as secureCopy } from "@/lib/clipboard";
 
 export default function GlassmorphismGeneratorPage() {
   const [blur, setBlur] = useState(16);
@@ -33,10 +34,12 @@ border: 1px solid rgba(${rgb}, ${outline});`;
     setCssCode(code);
   }, [blur, transparency, outline, color]);
 
-  const copyToClipboard = () => {
-    navigator.clipboard.writeText(cssCode);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const copyToClipboard = async () => {
+    const success = await secureCopy(cssCode);
+    if (success) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   return (

@@ -2,6 +2,7 @@
 
 import { useState, useEffect } from "react";
 import SmartBanner from "@/components/SmartBanner";
+import { copyToClipboard as secureCopy } from "@/lib/clipboard";
 
 const loremWords = [
   "lorem", "ipsum", "dolor", "sit", "amet", "consectetur", "adipiscing", "elit", 
@@ -18,58 +19,71 @@ export default function LoremIpsumPage() {
   const [type, setType] = useState<"paragraphs" | "words">("paragraphs");
   const [text, setText] = useState("");
   const [copied, setCopied] = useState(false);
+  const [isGenerating, setIsGenerating] = useState(false);
 
-  const generateLorem = (num: number, format: "paragraphs" | "words") => {
+  const generateLoremAsync = async (num: number, format: "paragraphs" | "words") => {
+    setIsGenerating(true);
+    
     if (format === "words") {
       let result = [];
-      for (let i = 0; i < num; i++) {
-        result.push(loremWords[Math.floor(Math.random() * loremWords.length)]);
+      for (let i = 0; i < num; i += 1000) {
+        await new Promise(resolve => setTimeout(resolve, 0));
+        const chunkEnd = Math.min(i + 1000, num);
+        for (let j = i; j < chunkEnd; j++) {
+          result.push(loremWords[Math.floor(Math.random() * loremWords.length)]);
+        }
       }
       if (result.length > 0) {
         result[0] = result[0].charAt(0).toUpperCase() + result[0].slice(1);
       }
-      return result.join(" ") + ".";
+      setText(result.join(" ") + ".");
+      setIsGenerating(false);
+      return;
     }
 
     // Paragraphs
     let paragraphs = [];
-    for (let p = 0; p < num; p++) {
-      // 5 to 10 sentences per paragraph
-      const sentencesCount = Math.floor(Math.random() * 5) + 5;
-      let paragraph = [];
-      
-      for (let s = 0; s < sentencesCount; s++) {
-        // 5 to 15 words per sentence
-        const wordsCount = Math.floor(Math.random() * 10) + 5;
-        let sentence = [];
+    for (let p = 0; p < num; p += 100) {
+      await new Promise(resolve => setTimeout(resolve, 0));
+      const chunkEnd = Math.min(p + 100, num);
+      for (let i = p; i < chunkEnd; i++) {
+        const sentencesCount = Math.floor(Math.random() * 5) + 5;
+        let paragraph = [];
         
-        for (let w = 0; w < wordsCount; w++) {
-          sentence.push(loremWords[Math.floor(Math.random() * loremWords.length)]);
+        for (let s = 0; s < sentencesCount; s++) {
+          const wordsCount = Math.floor(Math.random() * 10) + 5;
+          let sentence = [];
+          
+          for (let w = 0; w < wordsCount; w++) {
+            sentence.push(loremWords[Math.floor(Math.random() * loremWords.length)]);
+          }
+          
+          const sentenceStr = sentence.join(" ");
+          paragraph.push(sentenceStr.charAt(0).toUpperCase() + sentenceStr.slice(1) + ".");
         }
         
-        const sentenceStr = sentence.join(" ");
-        paragraph.push(sentenceStr.charAt(0).toUpperCase() + sentenceStr.slice(1) + ".");
-      }
-      
-      // If it's the very first paragraph, start with standard "Lorem ipsum dolor sit amet"
-      if (p === 0) {
-        paragraphs.push("Lorem ipsum dolor sit amet, consectetur adipiscing elit. " + paragraph.slice(1).join(" "));
-      } else {
-        paragraphs.push(paragraph.join(" "));
+        if (i === 0) {
+          paragraphs.push("Lorem ipsum dolor sit amet, consectetur adipiscing elit. " + paragraph.slice(1).join(" "));
+        } else {
+          paragraphs.push(paragraph.join(" "));
+        }
       }
     }
     
-    return paragraphs.join("\n\n");
+    setText(paragraphs.join("\n\n"));
+    setIsGenerating(false);
   };
 
   useEffect(() => {
-    setText(generateLorem(count, type));
+    generateLoremAsync(count, type);
   }, [count, type]);
 
-  const handleCopy = () => {
-    navigator.clipboard.writeText(text);
-    setCopied(true);
-    setTimeout(() => setCopied(false), 2000);
+  const handleCopy = async () => {
+    const success = await secureCopy(text);
+    if (success) {
+      setCopied(true);
+      setTimeout(() => setCopied(false), 2000);
+    }
   };
 
   return (
@@ -113,10 +127,11 @@ export default function LoremIpsumPage() {
         <div style={{ display: 'flex', gap: '1rem', flex: '1', minWidth: '200px' }}>
           <button 
             className="btn btn-primary"
-            onClick={() => setText(generateLorem(count, type))}
-            style={{ flex: 1, padding: '0.8rem' }}
+            onClick={() => generateLoremAsync(count, type)}
+            disabled={isGenerating}
+            style={{ flex: 1, padding: '0.8rem', opacity: isGenerating ? 0.7 : 1 }}
           >
-            Regenerate
+            {isGenerating ? "Generating..." : "Regenerate"}
           </button>
           <button 
             className={`btn ${copied ? 'btn-primary' : 'btn-outline'}`}
